@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Word</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Barre supérieure -->
+    <div class="top-bar">
+        <div class="app-name"><img src="img/Microsoft_Office_Word_(2019–2025).svg" alt="Word" height="20"></div>
+        <div class="top-actions">
+            <button class="top-btn" onclick="toggleDarkMode()">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            <button class="top-btn" onclick="exportPDF()">
+                <i class="fa-solid fa-file-pdf"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Ruban -->
+    <div class="ribbon">
+        <div class="tabs">
+            <button id="fileTab" class="tab" data-tab="file" onclick="openFileMenu()">Fichier</button>
+            <button class="tab active" data-tab="home" onclick="switchTab('home')">Accueil</button>
+            <button class="tab" data-tab="insert" onclick="switchTab('insert')">Insertion</button>
+            <button class="tab" data-tab="view" onclick="switchTab('view')">Affichage</button>
+        </div>
+
+        <!-- Toolbar Accueil -->
+        <div class="toolbar toolbar-section" id="toolbar-home">
+            <button onclick="exec('bold')" class="tool"><i class="fa-solid fa-bold"></i></button>
+            <button onclick="exec('italic')" class="tool"><i class="fa-solid fa-italic"></i></button>
+            <button onclick="exec('underline')" class="tool"><i class="fa-solid fa-underline"></i></button>
+
+            <div class="separator"></div>
+
+            <button onclick="exec('justifyLeft')" class="tool"><i class="fa-solid fa-align-left"></i></button>
+            <button onclick="exec('justifyCenter')" class="tool"><i class="fa-solid fa-align-center"></i></button>
+            <button onclick="exec('justifyRight')" class="tool"><i class="fa-solid fa-align-right"></i></button>
+
+            <div class="separator"></div>
+
+            <select id="fontSelect" class="tool" onchange="changeFont()">
+            <option value="Segoe UI">Segoe UI</option>
+            <option value="Arial">Arial</option>
+            <option value="Arial Black">Arial Black</option>
+            <option value="Calibri">Calibri</option>
+            <option value="Cambria">Cambria</option>
+            <option value="Candara">Candara</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Consolas">Consolas</option>
+            <option value="Constantia">Constantia</option>
+            <option value="Corbel">Corbel</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Ebrima">Ebrima</option>
+            <option value="Franklin Gothic Medium">Franklin Gothic Medium</option>
+            <option value="Gabriola">Gabriola</option>
+            <option value="Gadugi">Gadugi</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Impact">Impact</option>
+            <option value="Ink Free">Ink Free</option>
+            <option value="Leelawadee UI">Leelawadee UI</option>
+            <option value="Lucida Console">Lucida Console</option>
+            <option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+            <option value="Malgun Gothic">Malgun Gothic</option>
+            <option value="Microsoft Himalaya">Microsoft Himalaya</option>
+            <option value="Microsoft JhengHei">Microsoft JhengHei</option>
+            <option value="Microsoft New Tai Lue">Microsoft New Tai Lue</option>
+            <option value="Microsoft PhagsPa">Microsoft PhagsPa</option>
+            <option value="Microsoft Sans Serif">Microsoft Sans Serif</option>
+            <option value="Microsoft Tai Le">Microsoft Tai Le</option>
+            <option value="Microsoft YaHei">Microsoft YaHei</option>
+            <option value="Microsoft Yi Baiti">Microsoft Yi Baiti</option>
+            <option value="MingLiU">MingLiU</option>
+            <option value="Mongolian Baiti">Mongolian Baiti</option>
+            <option value="MS Gothic">MS Gothic</option>
+            <option value="MS PGothic">MS PGothic</option>
+            <option value="MS UI Gothic">MS UI Gothic</option>
+            <option value="MV Boli">MV Boli</option>
+            <option value="Nirmala UI">Nirmala UI</option>
+            <option value="Palatino Linotype">Palatino Linotype</option>
+            <option value="Segoe Print">Segoe Print</option>
+            <option value="Segoe Script">Segoe Script</option>
+            <option value="Segoe UI Emoji">Segoe UI Emoji</option>
+            <option value="Segoe UI Historic">Segoe UI Historic</option>
+            <option value="Segoe UI Symbol">Segoe UI Symbol</option>
+            <option value="SimSun">SimSun</option>
+            <option value="Sitka">Sitka</option>
+            <option value="Sylfaen">Sylfaen</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Yu Gothic">Yu Gothic</option>
+
+            <!-- Polices Web supplémentaires -->
+            <option value="Roboto">Roboto</option>
+            <option value="Open Sans">Open Sans</option>
+            <option value="Lato">Lato</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Poppins">Poppins</option>
+            <option value="Nunito">Nunito</option>
+            <option value="Inter">Inter</option>
+            <option value="Raleway">Raleway</option>
+            <option value="Oswald">Oswald</option>
+            <option value="Merriweather">Merriweather</option>
+            <option value="Playfair Display">Playfair Display</option>
+            </select>
+
+            <select id="sizeSelect" class="tool" onchange="changeSize()">
+                <option value="3">12</option>
+                <option value="4">14</option>
+                <option value="5" selected>18</option>
+                <option value="6">24</option>
+                <option value="7">32</option>
+            </select>
+
+            <input type="color" id="colorPicker" class="tool" onchange="changeColor()">
+            <input type="color" id="highlightPicker" class="tool" onchange="changeHighlight()">
+
+            <div class="separator"></div>
+
+            <button onclick="exec('undo')" class="tool"><i class="fa-solid fa-rotate-left"></i></button>
+            <button onclick="exec('redo')" class="tool"><i class="fa-solid fa-rotate-right"></i></button>
+        </div>
+
+        <!-- Toolbar Insertion -->
+        <div class="toolbar toolbar-section hidden" id="toolbar-insert">
+            <label class="tool file-label">
+                <i class="fa-solid fa-image"></i> Insérer une image
+                <input type="file" accept="image/*" onchange="insertImage(event)">
+            </label>
+        </div>
+
+        <!-- Toolbar Affichage -->
+        <div class="toolbar toolbar-section hidden" id="toolbar-view">
+            <span class="tool">Mode sombre :</span>
+            <button class="tool" onclick="toggleDarkMode()">
+                <i class="fa-solid fa-moon"></i> Basculer
+            </button>
+        </div>
+    </div>
+
+    <!-- Page -->
+    <div class="page-container">
+        <div class="page">
+            <div id="editor" contenteditable="true"></div>
+        </div>
+    </div>
+
+    <!-- Barre de statut -->
+    <div class="status-bar">
+        <span id="wordCount">0 mots</span>
+        <span id="autosaveStatus">Enregistré</span>
+    </div>
+
+    <div id="fileMenu" class="file-menu hidden">
+    <h2>Fichier</h2>
+
+    <button class="file-btn" onclick="newDocument()">Nouveau</button>
+    <button class="file-btn" onclick="openDocument()">Ouvrir</button>
+    <button class="file-btn" onclick="saveDocument()">Enregistrer</button>
+    <button class="file-btn" onclick="saveAsDocument()">Enregistrer sous</button>
+    <button class="file-btn" onclick="exportPDF()">Exporter en PDF</button>
+    <button class="file-btn" onclick="window.print()">Imprimer</button>
+
+    <button class="file-close" onclick="closeFileMenu()">Fermer</button>
+
+    <input type="file" id="openFileInput" class="hidden" onchange="loadOpenedFile(event)">
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
